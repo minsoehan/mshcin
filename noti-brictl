@@ -1,0 +1,28 @@
+#!/bin/dash
+
+bridown () {
+    brightnessctl set 5%-
+    bril=$(brightnessctl)
+}
+
+briup () {
+    brightnessctl set +5%
+    bril=$(brightnessctl)
+}
+
+popupinfo () {
+    notify-send -t 5000 -h string:x-canonical-private-synchronous:my-notification \
+        "Screen Brightness" \
+        "$bril"
+}
+
+case $1 in
+    down)
+        bridown
+        popupinfo
+        ;;
+    up)
+        briup
+        popupinfo
+        ;;
+esac
